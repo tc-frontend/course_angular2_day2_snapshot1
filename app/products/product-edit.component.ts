@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { ActivatedRoute  } from '@angular/router';
+import { ActivatedRoute, Router  } from '@angular/router';
+
 
 import { IProduct } from './product';
 import { ProductService } from './product-mock.service';
@@ -11,12 +12,15 @@ import { ProductService } from './product-mock.service';
 export class ProductEditComponent implements OnInit, OnDestroy {
  
     pageTitle: string = 'Product Edit';
+
+
+    errorMessage: string;
+    product: IProduct;
     private sub: Subscription;
 
-    product: IProduct;
-    errorMessage: string;
 
     constructor( private route: ActivatedRoute,
+                private router: Router,
                 private productService: ProductService) {
       
     }
@@ -29,7 +33,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
             }
         );
     }
-
 
 
     getProduct(id: number): void {
@@ -58,6 +61,19 @@ export class ProductEditComponent implements OnInit, OnDestroy {
             this.product.tags = [];
         }
         this.product.tags.push('');
+    }
+    saveProduct(): void {
+ 
+        this.productService.saveProduct(this.product)
+            .subscribe(
+                () => this.onSaveComplete(),
+                (error: any) => this.errorMessage = <any>error
+            );
+    }
+
+    onSaveComplete(): void {
+        // Reset the form to clear the flags
+        this.router.navigate(['/products']);
     }
 
 

@@ -9,14 +9,18 @@ import { ProductDetailComponent } from './product-detail.component';
 import { SharedModule } from '../shared/shared.module';
 
 import { ProductFilterPipe } from './product-filter.pipe';
-import { ProductService } from './product.service';
+import { ProductService } from './product-mock.service';
 import { ProductRoutingModule  } from './product-routing.module';
+
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ProductData }  from './product-data';
 
 
 @NgModule({
   imports: [
     SharedModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    InMemoryWebApiModule.forRoot(ProductData),
   ],
   declarations: [
     ProductFilterPipe,

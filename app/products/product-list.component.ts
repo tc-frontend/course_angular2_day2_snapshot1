@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { IProduct} from './product'
-import { ProductService } from './product.service'
+import { ProductService } from './product-mock.service'
 
 @Component({
     selector: 'pm-products',

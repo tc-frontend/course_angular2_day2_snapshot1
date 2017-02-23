@@ -5,6 +5,7 @@ import { RouterModule} from '@angular/router';
 import { ProductDetailGuard } from './product-guard.service';
 import { ProductListComponent } from './product-list.component';
 import { ProductDetailComponent } from './product-detail.component';
+import { ProductEditComponent } from './product-edit.component';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -25,7 +26,8 @@ import { ProductData }  from './product-data';
   declarations: [
     ProductFilterPipe,
     ProductListComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ProductEditComponent
   ],
   providers: [
     ProductService,

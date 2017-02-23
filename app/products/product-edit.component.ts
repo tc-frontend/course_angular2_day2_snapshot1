@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute  } from '@angular/router';
+
 import { IProduct } from './product';
+import { ProductService } from './product-mock.service';
 
 @Component({
     templateUrl: 'app/products/product-edit.component.html'
@@ -10,8 +12,12 @@ export class ProductEditComponent implements OnInit, OnDestroy {
  
     pageTitle: string = 'Product Edit';
     private sub: Subscription;
-    private product: IProduct;
-   constructor( private route: ActivatedRoute) {
+
+    product: IProduct;
+    errorMessage: string;
+
+    constructor( private route: ActivatedRoute,
+                private productService: ProductService) {
       
     }
     ngOnInit(): void {
@@ -19,34 +25,46 @@ export class ProductEditComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(
             params => {
                 let id = +params['id'];
-                this.pageTitle = `Edit Product: ${id}`;
+                this.getProduct(id);
             }
         );
     }
 
-    addTag(): void {
-        if(!this.product){
-            this.product ={
-                id: 0,
-                productName: null,
-                productCode: null,
-                tags: [],
-                releaseDate: null,
-                price: null,
-                description: null,
-                starRating: null,
-                imageUrl: null
-            };
+
+
+    getProduct(id: number): void {
+        this.productService.getProduct(id)
+            .subscribe(
+                (product: IProduct) => this.onProductRetrieved(product),
+                (error: any) => this.errorMessage = <any>error
+            );
+    }
+
+    onProductRetrieved(product: IProduct): void {
+     
+        this.product = product;
+
+        if (this.product.id === 0) {
+            this.pageTitle = 'Add Product';
+            this.product.tags = [];
+        } else {
+            this.pageTitle = `Edit Product: ${this.product.productName}`;
         }
+
+    }
+
+    addTag(): void {
         if(!this.product.tags){
             this.product.tags = [];
         }
         this.product.tags.push('');
     }
 
+
     trackByIndex(index:number) {
         return index;
     }
+
 
     ngOnDestroy(): void {
         this.sub.unsubscribe();

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router  } from '@angular/router';
 
@@ -79,9 +80,12 @@ export class ProductEditComponent implements OnInit, OnDestroy {
             }
         }
     }
+    
 
-    saveProduct(): void {
- 
+    saveProduct(formProduct: NgForm): void {
+        console.log(formProduct.form);
+        console.log('Saved: ' + JSON.stringify(formProduct.value));
+
         this.productService.saveProduct(this.product)
             .subscribe(
                 () => this.onSaveComplete(),

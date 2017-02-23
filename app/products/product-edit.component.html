@@ -7,7 +7,7 @@
         <form class="form-horizontal"
               novalidate
               #productForm="ngForm"
-              (ngSubmit)="saveProduct()">
+              (ngSubmit)="saveProduct(productForm)">
             <fieldset>
                 <div class="form-group" 
                      [ngClass]="{'has-error': (productNameVar.touched || productNameVar.dirty) && !productNameVar.valid }">
@@ -147,7 +147,9 @@
                 </div>
             </fieldset>
         </form>
-
+        <br>Dirty: {{ productForm.dirty }} 
+        <br>Touched: {{ productForm.touched }}
+        <br>Valid: {{ productForm.valid }}
+        <br>Value: {{ productForm.value | json }}
     </div>
-
 </div>

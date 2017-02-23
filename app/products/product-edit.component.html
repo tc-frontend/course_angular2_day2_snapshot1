@@ -136,7 +136,7 @@
                                 Cancel
                             </a>
                         </span>
-                         <span>
+                        <span *ngIf="mode=='edit'">
                             <a class="btn btn-danger"
                                style="width:80px"
                                (click)="deleteProduct()">

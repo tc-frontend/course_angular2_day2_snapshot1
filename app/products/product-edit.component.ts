@@ -18,7 +18,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
     product: IProduct;
     private sub: Subscription;
 
-
+    mode: string;
     constructor( private route: ActivatedRoute,
                 private router: Router,
                 private productService: ProductService) {
@@ -50,8 +50,10 @@ export class ProductEditComponent implements OnInit, OnDestroy {
         if (this.product.id === 0) {
             this.pageTitle = 'Add Product';
             this.product.tags = [];
+            this. mode='create'
         } else {
             this.pageTitle = `Edit Product: ${this.product.productName}`;
+            this.mode ='edit'
         }
 
     }

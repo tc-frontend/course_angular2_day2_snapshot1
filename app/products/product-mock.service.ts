@@ -53,6 +53,7 @@ export class ProductService {
         let options = new RequestOptions({ headers: headers });
 
         if (product.id === 0) {
+            product.imageUrl = "http://openclipart.org/image/300px/svg_to_png/26215/Anonymous_Leaf_Rake.png";
             return this.createProduct(product, options);
         }
         return this.updateProduct(product, options);
